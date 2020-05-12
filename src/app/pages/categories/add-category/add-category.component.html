@@ -1,0 +1,53 @@
+<form (ngSubmit)="onFormSubmit()" [formGroup]="categoryForm" class="levelForm">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.NAMEEN"|translate}}</label>
+          <input class="form-control" formControlName="nameEn" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.NAMEEN'|translate}}">
+          <label *ngIf="categoryForm.get('nameEn').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.NAMEAR"|translate}}</label>
+          <input class="form-control" formControlName="nameAr" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.NAMEAR'|translate}}">
+          <label *ngIf="categoryForm.get('nameAr').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.NAMEFR"|translate}}</label>
+          <input class="form-control" formControlName="nameFr" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.NAMEFR'|translate}}">
+          <label *ngIf="categoryForm.get('nameFr').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <app-upload-img [isWithAdd]="true" [image]="imageObject"
+          (getImageChange)="imageChangeCallback($event)">
+        </app-upload-img>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm submit-col">
+        <button (click)="back()" class="btn btn-danger" type="button">
+          {{"GLOBAL.BACK"|translate}}
+        </button>
+        <button *ngIf="!isUpdate" class="btn btn-success" type="submit">
+          {{"GLOBAL.ADD"|translate}}
+        </button>
+        <!-- <i *ngIf="!levelForm.invalid&&submitted" class="fa fa-circle-o-notch fa-2x fa-spin spinner-submit"></i> -->
+        <button *ngIf="isUpdate" class=" btn btn-success" type="submit">
+          {{"GLOBAL.UPDATE"|translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

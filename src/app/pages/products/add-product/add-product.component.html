@@ -1,0 +1,114 @@
+<form (ngSubmit)="onFormSubmit()" [formGroup]="productForm" class="levelForm">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.NAMEEN"|translate}}</label>
+          <input class="form-control" formControlName="nameEn" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.NAMEEN'|translate}}">
+          <label *ngIf="productForm.get('nameEn').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.NAMEAR"|translate}}</label>
+          <input class="form-control" formControlName="nameAr" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.NAMEAR'|translate}}">
+          <label *ngIf="productForm.get('nameAr').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.NAMEFR"|translate}}</label>
+          <input class="form-control" formControlName="nameFr" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.NAMEFR'|translate}}">
+          <label *ngIf="productForm.get('nameFr').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="type">{{'GLOBAL.CATEGORY'|translate}}</label>
+          <select formControlName="categoryId"class="form-control">
+            <option value="" disabled selected>{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.CATEGORY'|translate}}</option>
+            <option *ngFor="let oneCategory of categories" [selected]="" [value]="oneCategory.id">
+              {{oneCategory.nameEn}}
+            </option>
+          </select>
+          <label *ngIf="productForm.get('categoryId').invalid  && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.PRICE"|translate}}</label>
+          <input class="form-control" formControlName="price" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.PRICE'|translate}}">
+          <label *ngIf="productForm.get('price').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.QUANTITY"|translate}}</label>
+          <input class="form-control" formControlName="quantity" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.QUANTITY'|translate}}">
+          <label *ngIf="productForm.get('quantity').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-12">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.DESCRIPTIONEN"|translate}}</label>
+          <textarea class="form-control" formControlName="descriptionEn" type="text"
+            (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.DESCRIPTIONEN'|translate}}"></textarea>
+          <label *ngIf="productForm.get('descriptionEn').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-12">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.DESCRIPTIONAR"|translate}}</label>
+          <textarea class="form-control" formControlName="descriptionAr" type="text"
+            (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.DESCRIPTIONAR'|translate}}"></textarea>
+          <label *ngIf="productForm.get('descriptionAr').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-12">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.DESCRIPTIONFR"|translate}}</label>
+          <textarea class="form-control" formControlName="descriptionFr" type="text"
+            (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.DESCRIPTIONFR'|translate}}"></textarea>
+          <label *ngIf="productForm.get('descriptionFr').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-12">
+        <app-upload-img [isWithAdd]="true" [isMultiImg]="true" [arrayImage]="arrayImage" (getarrayImageChange)="imageChangeCallback($event)">
+        </app-upload-img>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm submit-col">
+        <button (click)="back()" class="btn btn-danger" type="button">
+          {{"GLOBAL.BACK"|translate}}
+        </button>
+        <button *ngIf="!isUpdate" class="btn btn-success" type="submit">
+          {{"GLOBAL.ADD"|translate}}
+        </button>
+        <!-- <i *ngIf="!levelForm.invalid&&submitted" class="fa fa-circle-o-notch fa-2x fa-spin spinner-submit"></i> -->
+        <button *ngIf="isUpdate" class=" btn btn-success" type="submit">
+          {{"GLOBAL.UPDATE"|translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

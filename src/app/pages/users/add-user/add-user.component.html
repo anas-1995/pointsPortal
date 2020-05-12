@@ -1,0 +1,97 @@
+<form (ngSubmit)="onFormSubmit()" [formGroup]="userForm" class="levelForm">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.EMAIL"|translate}}</label>
+          <input class="form-control" formControlName="email" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.EMAIL'|translate}}">
+          <label *ngIf="userForm.get('email').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.NAME"|translate}}</label>
+          <input class="form-control" formControlName="name" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.NAME'|translate}}">
+          <label *ngIf="userForm.get('name').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4" *ngIf="!isUpdate">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.PASSWORD"|translate}}</label>
+          <input class="form-control" formControlName="password" type="password" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.PASSWORD'|translate}}">
+          <label *ngIf="userForm.get('password').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="type">{{'GLOBAL.GENDER'|translate}}</label>
+          <select formControlName="gender" class="form-control">
+            <option value="" disabled selected>{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.GENDER'|translate}}</option>
+            <option [value]="'male'">
+              {{'GLOBAL.GENDERS.male'|translate}}
+            </option>
+            <option [value]="'female'">
+              {{'GLOBAL.GENDERS.female'|translate}}
+            </option>
+          </select>
+          <label *ngIf="userForm.get('gender').invalid  && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.POINTS"|translate}}</label>
+          <input class="form-control" formControlName="points" type="number" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.POINTS'|translate}}">
+          <label *ngIf="userForm.get('points').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.PHONE"|translate}}</label>
+          <input class="form-control" formControlName="phone" type="number" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.PHONE'|translate}}">
+          <label *ngIf="userForm.get('phone').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.BIRTHDATE"|translate}}</label>
+          <input class="form-control" formControlName="birthdate" type="date" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.BIRTHDATE'|translate}}">
+          <label *ngIf="userForm.get('birthdate').invalid && isSubmitted"
+            class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm col-sm-4">
+        <app-upload-img [isWithAdd]="true" [image]="imageObject" (getImageChange)="imageChangeCallback($event)">
+        </app-upload-img>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm submit-col">
+        <button (click)="back()" class="btn btn-danger" type="button">
+          {{"GLOBAL.BACK"|translate}}
+        </button>
+        <button *ngIf="!isUpdate" class="btn btn-success" type="submit">
+          {{"GLOBAL.ADD"|translate}}
+        </button>
+        <!-- <i *ngIf="!levelForm.invalid&&submitted" class="fa fa-circle-o-notch fa-2x fa-spin spinner-submit"></i> -->
+        <button *ngIf="isUpdate" class=" btn btn-success" type="submit">
+          {{"GLOBAL.UPDATE"|translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -93,5 +93,10 @@
         </button>
       </div>
     </div>
+    <div style="margin: 20px 0px;">
+      <app-custom-table *ngIf="isUpdate" [fields]="fields" [count]="count" [limit]="limit" [data]="arrayPurshes"
+        (changePage)="changePages($event)" (actionOnRow)="action($event)">
+      </app-custom-table>
+    </div>
   </div>
 </form>

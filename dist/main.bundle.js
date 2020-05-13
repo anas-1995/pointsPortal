@@ -1795,7 +1795,8 @@ var ListCategoryComponent = (function () {
             { "key": "nameFr", "label": "GLOBAL.NAMEFR", "type": "string" },
             {
                 "type": "buttons", "label": "", "isIcon": false, "buttons": [
-                    { "type": "success", "action": "edit", "label": "GLOBAL.EDIT" }
+                    { "type": "success", "action": "edit", "label": "GLOBAL.EDIT" },
+                    { "type": "danger", "action": "delete", "label": "GLOBAL.DELETE" }
                 ]
             }
         ];
@@ -1824,6 +1825,8 @@ var ListCategoryComponent = (function () {
     ListCategoryComponent.prototype.action = function (data) {
         if (data.event == 'edit') {
             this.mainSer.globalServ.goTo("edit-category/" + data.id);
+        }
+        else if (data.event == 'delete') {
         }
     };
     return ListCategoryComponent;
@@ -2204,7 +2207,8 @@ var ListProductComponent = (function () {
             { "key": "purchaseCount", "label": "GLOBAL.PURCHASECOUNT", "type": "string" },
             {
                 "type": "buttons", "label": "", "isIcon": false, "buttons": [
-                    { "type": "success", "action": "edit", "label": "GLOBAL.EDIT" }
+                    { "type": "success", "action": "edit", "label": "GLOBAL.EDIT" },
+                    { "type": "danger", "action": "delete", "label": "GLOBAL.DELETE" }
                 ]
             }
         ];
@@ -2233,6 +2237,8 @@ var ListProductComponent = (function () {
     ListProductComponent.prototype.action = function (data) {
         if (data.event == 'edit') {
             this.mainSer.globalServ.goTo("edit-product/" + data.id);
+        }
+        else if (data.event == 'delete') {
         }
     };
     return ListProductComponent;
@@ -2376,7 +2382,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/pages/users/add-user/add-user.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form (ngSubmit)=\"onFormSubmit()\" [formGroup]=\"userForm\" class=\"levelForm\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.EMAIL\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"email\" type=\"text\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.EMAIL'|translate}}\">\n          <label *ngIf=\"userForm.get('email').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.NAME\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"name\" type=\"text\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.NAME'|translate}}\">\n          <label *ngIf=\"userForm.get('name').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\" *ngIf=\"!isUpdate\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.PASSWORD\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"password\" type=\"password\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.PASSWORD'|translate}}\">\n          <label *ngIf=\"userForm.get('password').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"type\">{{'GLOBAL.GENDER'|translate}}</label>\n          <select formControlName=\"gender\" class=\"form-control\">\n            <option value=\"\" disabled selected>{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.GENDER'|translate}}</option>\n            <option [value]=\"'male'\">\n              {{'GLOBAL.GENDERS.male'|translate}}\n            </option>\n            <option [value]=\"'female'\">\n              {{'GLOBAL.GENDERS.female'|translate}}\n            </option>\n          </select>\n          <label *ngIf=\"userForm.get('gender').invalid  && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.POINTS\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"points\" type=\"number\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.POINTS'|translate}}\">\n          <label *ngIf=\"userForm.get('points').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.PHONE\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"phone\" type=\"number\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.PHONE'|translate}}\">\n          <label *ngIf=\"userForm.get('phone').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.BIRTHDATE\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"birthdate\" type=\"date\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.BIRTHDATE'|translate}}\">\n          <label *ngIf=\"userForm.get('birthdate').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-sm col-sm-4\">\n        <app-upload-img [isWithAdd]=\"true\" [image]=\"imageObject\" (getImageChange)=\"imageChangeCallback($event)\">\n        </app-upload-img>\n      </div>\n    </div>\n\n    <div class=\"row\">\n      <div class=\"col-sm submit-col\">\n        <button (click)=\"back()\" class=\"btn btn-danger\" type=\"button\">\n          {{\"GLOBAL.BACK\"|translate}}\n        </button>\n        <button *ngIf=\"!isUpdate\" class=\"btn btn-success\" type=\"submit\">\n          {{\"GLOBAL.ADD\"|translate}}\n        </button>\n        <!-- <i *ngIf=\"!levelForm.invalid&&submitted\" class=\"fa fa-circle-o-notch fa-2x fa-spin spinner-submit\"></i> -->\n        <button *ngIf=\"isUpdate\" class=\" btn btn-success\" type=\"submit\">\n          {{\"GLOBAL.UPDATE\"|translate}}\n        </button>\n      </div>\n    </div>\n  </div>\n</form>"
+module.exports = "<form (ngSubmit)=\"onFormSubmit()\" [formGroup]=\"userForm\" class=\"levelForm\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.EMAIL\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"email\" type=\"text\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.EMAIL'|translate}}\">\n          <label *ngIf=\"userForm.get('email').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.NAME\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"name\" type=\"text\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.NAME'|translate}}\">\n          <label *ngIf=\"userForm.get('name').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\" *ngIf=\"!isUpdate\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.PASSWORD\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"password\" type=\"password\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.PASSWORD'|translate}}\">\n          <label *ngIf=\"userForm.get('password').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"type\">{{'GLOBAL.GENDER'|translate}}</label>\n          <select formControlName=\"gender\" class=\"form-control\">\n            <option value=\"\" disabled selected>{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.GENDER'|translate}}</option>\n            <option [value]=\"'male'\">\n              {{'GLOBAL.GENDERS.male'|translate}}\n            </option>\n            <option [value]=\"'female'\">\n              {{'GLOBAL.GENDERS.female'|translate}}\n            </option>\n          </select>\n          <label *ngIf=\"userForm.get('gender').invalid  && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.POINTS\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"points\" type=\"number\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.POINTS'|translate}}\">\n          <label *ngIf=\"userForm.get('points').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.PHONE\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"phone\" type=\"number\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.PHONE'|translate}}\">\n          <label *ngIf=\"userForm.get('phone').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n      <div class=\"col-sm col-sm-4\">\n        <div class=\"form-group\">\n          <label for=\"numberOfTimes\">{{\"GLOBAL.BIRTHDATE\"|translate}}</label>\n          <input class=\"form-control\" formControlName=\"birthdate\" type=\"date\" (input)=\"isSubmitted=false;message=''\"\n            placeholder=\"{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.BIRTHDATE'|translate}}\">\n          <label *ngIf=\"userForm.get('birthdate').invalid && isSubmitted\"\n            class=\"text-danger errorLabel\">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>\n        </div>\n      </div>\n    </div>\n    <div class=\"row\">\n      <div class=\"col-sm col-sm-4\">\n        <app-upload-img [isWithAdd]=\"true\" [image]=\"imageObject\" (getImageChange)=\"imageChangeCallback($event)\">\n        </app-upload-img>\n      </div>\n    </div>\n\n    <div class=\"row\">\n      <div class=\"col-sm submit-col\">\n        <button (click)=\"back()\" class=\"btn btn-danger\" type=\"button\">\n          {{\"GLOBAL.BACK\"|translate}}\n        </button>\n        <button *ngIf=\"!isUpdate\" class=\"btn btn-success\" type=\"submit\">\n          {{\"GLOBAL.ADD\"|translate}}\n        </button>\n        <!-- <i *ngIf=\"!levelForm.invalid&&submitted\" class=\"fa fa-circle-o-notch fa-2x fa-spin spinner-submit\"></i> -->\n        <button *ngIf=\"isUpdate\" class=\" btn btn-success\" type=\"submit\">\n          {{\"GLOBAL.UPDATE\"|translate}}\n        </button>\n      </div>\n    </div>\n    <div style=\"margin: 20px 0px;\">\n      <app-custom-table *ngIf=\"isUpdate\" [fields]=\"fields\" [count]=\"count\" [limit]=\"limit\" [data]=\"arrayPurshes\"\n        (changePage)=\"changePages($event)\" (actionOnRow)=\"action($event)\">\n      </app-custom-table>\n    </div>\n  </div>\n</form>"
 
 /***/ }),
 
@@ -2417,6 +2423,10 @@ var AddUserComponent = (function () {
         this.isSubmitted = false;
         this.message = "";
         this.isUpdate = false;
+        this.limit = 10;
+        this.offset = 0;
+        this.count = 0;
+        this.arrayPurshes = [];
         this.userForm = new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormGroup */]({
             email: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormControl */]("", __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required),
             name: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormControl */]("", __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required),
@@ -2428,6 +2438,12 @@ var AddUserComponent = (function () {
         });
         // constArray
         this.languageKey = this.mainSer.globalServ.getLanguageKey();
+        this.fields = [
+            { "key": "price", "label": "GLOBAL.PRICE", "type": "price" },
+            { "key": "quanitiy", "label": "GLOBAL.QUANITIY", "type": "string" },
+            { "key": "product.nameEn", "label": "GLOBAL.PRODUCT", "type": "object" },
+            { "key": "createdAt", "label": "GLOBAL.CREATED_AT", "type": "date", "viewDate": true }
+        ];
         var self = this;
         this.routeSer.params.subscribe(function (params) {
             if (params['id']) {
@@ -2438,16 +2454,27 @@ var AddUserComponent = (function () {
                     self.userForm.patchValue(data);
                     self.userForm.patchValue({ "birthdate": data.birthdate.toISOString().split('T')[0] });
                     self.imageObject = data.image;
+                    self.getPurshesData();
                 });
             }
         });
     }
-    AddUserComponent.prototype.parseDate = function (s) {
-        var b = s.split(/\D/);
-        return new Date(b[0], --b[1], b[2]);
+    AddUserComponent.prototype.changePages = function (page) {
+        console.log(page);
+        this.offset = (page - 1) * this.limit;
+        this.getPurshesData();
+    };
+    AddUserComponent.prototype.getPurshesData = function () {
+        var self = this;
+        self.userSer.getPurshesPaginationObject(self.id, self.limit, self.offset, function (err, data, count) {
+            if (err)
+                return err.returnMessage();
+            self.arrayPurshes = data;
+            if (count)
+                self.count = count;
+        });
     };
     AddUserComponent.prototype.ngOnInit = function () {
-        var self = this;
     };
     AddUserComponent.prototype.createObject = function () {
         var self = this;
@@ -2689,6 +2716,32 @@ var UserService = (function () {
             callback(error, null);
         });
     };
+    UserService.prototype.getPurshesPaginationObject = function (userId, limit, offset, callback) {
+        var self = this;
+        var filter = { "limit": limit, "offset": offset, "where": { "userId": userId } };
+        if (offset != 0) {
+            self.mainSer.APIServ.get("purchases?filter=" + JSON.stringify(filter))
+                .subscribe(function (data) {
+                callback(null, data);
+            }, function (error) {
+                callback(error, null);
+            });
+        }
+        else {
+            self.getCountPurchase(userId, function (error, count) {
+                if (error)
+                    callback(error, null);
+                else {
+                    self.mainSer.APIServ.get("purchases?filter=" + JSON.stringify(filter))
+                        .subscribe(function (data) {
+                        callback(null, data, count);
+                    }, function (error) {
+                        callback(error, null);
+                    });
+                }
+            });
+        }
+    };
     UserService.prototype.getPaginationObject = function (limit, offset, callback) {
         var self = this;
         var filter = { "limit": limit, "offset": offset };
@@ -2714,6 +2767,15 @@ var UserService = (function () {
                 }
             });
         }
+    };
+    UserService.prototype.getCountPurchase = function (userId, callback) {
+        var where = { "userId": userId };
+        this.mainSer.APIServ.get("purchases/count?where=" + JSON.stringify(where))
+            .subscribe(function (data) {
+            callback(null, data.count);
+        }, function (error) {
+            callback(error, null);
+        });
     };
     UserService.prototype.getCount = function (callback) {
         this.mainSer.APIServ.get("users/count")

@@ -26,7 +26,9 @@ export class ListProductComponent implements OnInit {
     { "key": "purchaseCount", "label": "GLOBAL.PURCHASECOUNT", "type": "string" },
     {
       "type": "buttons", "label": "", "isIcon": false, "buttons": [
-        { "type": "success", "action": "edit", "label": "GLOBAL.EDIT" }
+        { "type": "success", "action": "edit", "label": "GLOBAL.EDIT" },
+        { "type": "danger", "action": "delete", "label": "GLOBAL.DELETE" }
+
       ]
     }
 
@@ -60,6 +62,8 @@ export class ListProductComponent implements OnInit {
   action(data) {
     if (data.event == 'edit') {
       this.mainSer.globalServ.goTo("edit-product/" + data.id)
+    }
+    else if (data.event == 'delete') {
     }
   }
 

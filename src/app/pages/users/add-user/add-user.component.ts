@@ -22,6 +22,11 @@ export class AddUserComponent implements OnInit {
   public id: number;
 
 
+  public limit: number = 10
+  public offset: number = 0
+  public count: number = 0
+  arrayPurshes: any[] = []
+
 
 
   userForm = new FormGroup({
@@ -49,18 +54,30 @@ export class AddUserComponent implements OnInit {
           self.userForm.patchValue(data);
           self.userForm.patchValue({ "birthdate": data.birthdate.toISOString().split('T')[0] })
           self.imageObject = data.image
+          self.getPurshesData()
         });
       }
     });
 
   }
 
-  parseDate(s) {
-    var b = s.split(/\D/);
-    return new Date(b[0], --b[1], b[2]);
+
+  changePages(page) {
+    console.log(page);
+    this.offset = (page - 1) * this.limit;
+    this.getPurshesData()
+  }
+  getPurshesData() {
+    var self = this;
+    self.userSer.getPurshesPaginationObject(self.id, self.limit, self.offset, function (err: appError, data, count) {
+      if (err)
+        return err.returnMessage()
+      self.arrayPurshes = data;
+      if (count)
+        self.count = count;
+    })
   }
   ngOnInit() {
-    var self = this;
 
   }
 
@@ -115,5 +132,16 @@ export class AddUserComponent implements OnInit {
   back() {
     this.mainSer.globalServ.goTo("list-user")
   }
+
+
+
+  fields = [
+    { "key": "price", "label": "GLOBAL.PRICE", "type": "price" },
+    { "key": "quanitiy", "label": "GLOBAL.QUANITIY", "type": "string" },
+    { "key": "product.nameEn", "label": "GLOBAL.PRODUCT", "type": "object" },
+    { "key": "createdAt", "label": "GLOBAL.CREATED_AT", "type": "date", "viewDate": true }
+
+  ]
+
 
 }

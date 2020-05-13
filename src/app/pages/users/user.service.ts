@@ -48,6 +48,35 @@ export class UserService {
   }
 
 
+  getPurshesPaginationObject(userId, limit, offset, callback) {
+    let self = this
+    var filter = { "limit": limit, "offset": offset, "where": { "userId": userId } }
+    if (offset != 0) {
+
+      self.mainSer.APIServ.get("purchases?filter=" + JSON.stringify(filter))
+        .subscribe((data: any) => {
+          callback(null, data)
+        }, error => {
+          callback(error, null)
+        })
+    }
+    else {
+      self.getCountPurchase(userId, function (error, count) {
+        if (error)
+          callback(error, null)
+        else {
+          self.mainSer.APIServ.get("purchases?filter=" + JSON.stringify(filter))
+            .subscribe((data: any) => {
+              callback(null, data, count)
+            }, error => {
+              callback(error, null)
+            })
+        }
+      })
+    }
+  }
+
+
   getPaginationObject(limit, offset, callback) {
     let self = this
     var filter = { "limit": limit, "offset": offset }
@@ -76,6 +105,15 @@ export class UserService {
     }
   }
 
+  getCountPurchase(userId, callback) {
+    let where = { "userId": userId }
+    this.mainSer.APIServ.get("purchases/count?where=" + JSON.stringify(where))
+      .subscribe((data: any) => {
+        callback(null, data.count)
+      }, error => {
+        callback(error, null)
+      })
+  }
 
   getCount(callback) {
     this.mainSer.APIServ.get("users/count")

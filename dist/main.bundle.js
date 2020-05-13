@@ -2440,7 +2440,7 @@ var AddUserComponent = (function () {
         this.languageKey = this.mainSer.globalServ.getLanguageKey();
         this.fields = [
             { "key": "price", "label": "GLOBAL.PRICE", "type": "price" },
-            { "key": "quanitiy", "label": "GLOBAL.QUANITIY", "type": "string" },
+            { "key": "quantity", "label": "GLOBAL.QUANTITY", "type": "string" },
             { "key": "product.nameEn", "label": "GLOBAL.PRODUCT", "type": "object" },
             { "key": "createdAt", "label": "GLOBAL.CREATED_AT", "type": "date", "viewDate": true }
         ];

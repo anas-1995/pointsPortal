@@ -77,9 +77,9 @@ export class UserService {
   }
 
 
-  getPaginationObject(limit, offset, callback) {
+  getPaginationObject(whereObject, limit, offset, callback) {
     let self = this
-    var filter = { "limit": limit, "offset": offset }
+    var filter = { "limit": limit, "offset": offset, "where": whereObject }
     if (offset != 0) {
 
       self.mainSer.APIServ.get("users?filter=" + JSON.stringify(filter))
@@ -90,7 +90,7 @@ export class UserService {
         })
     }
     else {
-      self.getCount(function (error, count) {
+      self.getCount(whereObject, function (error, count) {
         if (error)
           callback(error, null)
         else {
@@ -115,8 +115,8 @@ export class UserService {
       })
   }
 
-  getCount(callback) {
-    this.mainSer.APIServ.get("users/count")
+  getCount(whereObject, callback) {
+    this.mainSer.APIServ.get("users/count?where=" + JSON.stringify(whereObject))
       .subscribe((data: any) => {
         callback(null, data.count)
       }, error => {

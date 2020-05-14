@@ -14,6 +14,7 @@ export class ListCategoryComponent implements OnInit {
   public limit: number = 10
   public offset: number = 0
   public count: number = 0
+  public keyWord: string = "";
   arrayCategory: Category[] = []
   // public languageKey = this.mainSer.globalServ.getLanguageKey()
 
@@ -46,7 +47,8 @@ export class ListCategoryComponent implements OnInit {
   }
   getData() {
     var self = this;
-    self.categorySer.getPaginationObject(self.limit, self.offset, function (err: appError, data, count) {
+    let whereObject = { "or": [{ "nameEn": this.getRegex(self.keyWord) }, { "nameAr": this.getRegex(self.keyWord) }, { "nameFr": this.getRegex(self.keyWord) }] }
+    self.categorySer.getPaginationObject(whereObject, self.limit, self.offset, function (err: appError, data, count) {
       if (err)
         return err.returnMessage()
       self.arrayCategory = data;
@@ -55,6 +57,20 @@ export class ListCategoryComponent implements OnInit {
     })
   }
 
+  changedKeyWord(value) {
+    let self = this
+    setTimeout(() => {
+      if (self.keyWord == value) {
+        self.offset = 0
+        self.getData()
+      }
+    }, 1500);
+  }
+
+  getRegex(string) {
+    var pattern = new RegExp('.*' + string + '.*', "i"); /* case-insensitive RegExp search */
+    return { regexp: pattern.toString() }
+  }
   action(data) {
     if (data.event == 'edit') {
       this.mainSer.globalServ.goTo("edit-category/" + data.id)

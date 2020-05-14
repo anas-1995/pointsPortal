@@ -1,10 +1,15 @@
 <div class="container">
-  <div class="row"  style="padding-bottom: 10px; margin: 0px;">
-    <button (click)="addProduct()" class="btn btn-success" style="float: right;" type="button">
+  <div class="" style="padding-bottom: 10px; margin: 0px;">
+    <button (click)="addProduct()" class="btn btn-success" style="float: right;margin-top: 4px;" type="button">
       {{"GLOBAL.ADDPRODUCT"|translate}}
     </button>
+    <div class="searchGroupe">
+      <!-- <label for="numberOfTimes">{{"GLOBAL.NEWPASSWORD"|translate}}</label> -->
+      <input class="form-control" (input)="changedKeyWord($event.target.value)" [(ngModel)]="keyWord" type="text"
+        placeholder="{{'GLOBAL.SEARCH'|translate}} {{'GLOBAL.PRODUCT'|translate}}">
+    </div>
   </div>
-  <app-custom-table [fields]="fields" [count]="count" [limit]="limit"  [data]="arrayProduct"
+  <app-custom-table [fields]="fields" [count]="count" [limit]="limit" [data]="arrayProduct"
     (changePage)="changePages($event)" (actionOnRow)="action($event)">
   </app-custom-table>
 </div>

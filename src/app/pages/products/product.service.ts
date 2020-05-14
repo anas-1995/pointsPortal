@@ -39,9 +39,9 @@ export class ProductService {
   }
 
 
-  getPaginationObject(limit, offset, callback) {
+  getPaginationObject(whereObject, limit, offset, callback) {
     let self = this
-    var filter = { "limit": limit, "offset": offset }
+    var filter = { "limit": limit, "offset": offset, "where": whereObject }
     if (offset != 0) {
 
       self.mainSer.APIServ.get("products?filter=" + JSON.stringify(filter))
@@ -52,7 +52,7 @@ export class ProductService {
         })
     }
     else {
-      self.getCount(function (error, count) {
+      self.getCount(whereObject, function (error, count) {
         if (error)
           callback(error, null)
         else {
@@ -68,8 +68,8 @@ export class ProductService {
   }
 
 
-  getCount(callback) {
-    this.mainSer.APIServ.get("products/count")
+  getCount(whereObject, callback) {
+    this.mainSer.APIServ.get("products/count?where=" + JSON.stringify(whereObject))
       .subscribe((data: any) => {
         callback(null, data.count)
       }, error => {

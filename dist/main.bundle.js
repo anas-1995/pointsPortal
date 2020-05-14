@@ -1680,9 +1680,9 @@ var CategoryService = (function () {
             callback(error, null);
         });
     };
-    CategoryService.prototype.getPaginationObject = function (limit, offset, callback) {
+    CategoryService.prototype.getPaginationObject = function (whereObject, limit, offset, callback) {
         var self = this;
-        var filter = { "limit": limit, "offset": offset };
+        var filter = { "limit": limit, "offset": offset, "where": whereObject };
         if (offset != 0) {
             self.mainSer.APIServ.get("categories?filter=" + JSON.stringify(filter))
                 .subscribe(function (data) {
@@ -1692,7 +1692,7 @@ var CategoryService = (function () {
             });
         }
         else {
-            self.getCount(function (error, count) {
+            self.getCount(whereObject, function (error, count) {
                 if (error) {
                     callback(error, null);
                 }
@@ -1707,8 +1707,8 @@ var CategoryService = (function () {
             });
         }
     };
-    CategoryService.prototype.getCount = function (callback) {
-        this.mainSer.APIServ.get("categories/count")
+    CategoryService.prototype.getCount = function (whereObject, callback) {
+        this.mainSer.APIServ.get("categories/count?where=" + JSON.stringify(whereObject))
             .subscribe(function (data) {
             callback(null, data.count);
         }, function (error) {
@@ -1756,7 +1756,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/pages/categories/list-category/list-category.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\"  style=\"padding-bottom: 10px; margin: 0px;\">\n    <button (click)=\"addCategory()\" class=\"btn btn-success\" style=\"float: right;\" type=\"button\">\n      {{\"GLOBAL.ADDCATEGORY\"|translate}}\n    </button>\n  </div>\n  <app-custom-table [fields]=\"fields\" [count]=\"count\" [limit]=\"limit\"  [data]=\"arrayCategory\"\n    (changePage)=\"changePages($event)\" (actionOnRow)=\"action($event)\">\n  </app-custom-table>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <div class=\"\" style=\"padding-bottom: 10px; margin: 0px;\">\n    <button (click)=\"addCategory()\" class=\"btn btn-success\" style=\"float: right;margin-top: 4px;\" type=\"button\">\n      {{\"GLOBAL.ADDCATEGORY\"|translate}}\n    </button>\n    <div class=\"searchGroupe\">\n      <!-- <label for=\"numberOfTimes\">{{\"GLOBAL.NEWPASSWORD\"|translate}}</label> -->\n      <input class=\"form-control\" (input)=\"changedKeyWord($event.target.value)\" [(ngModel)]=\"keyWord\" type=\"text\"\n        placeholder=\"{{'GLOBAL.SEARCH'|translate}} {{'GLOBAL.CATEGORY'|translate}}\">\n    </div>\n  </div>\n  <app-custom-table [fields]=\"fields\" [count]=\"count\" [limit]=\"limit\" [data]=\"arrayCategory\"\n    (changePage)=\"changePages($event)\" (actionOnRow)=\"action($event)\">\n  </app-custom-table>\n</div>"
 
 /***/ }),
 
@@ -1787,6 +1787,7 @@ var ListCategoryComponent = (function () {
         this.limit = 10;
         this.offset = 0;
         this.count = 0;
+        this.keyWord = "";
         this.arrayCategory = [];
         // public languageKey = this.mainSer.globalServ.getLanguageKey()
         this.fields = [
@@ -1814,13 +1815,27 @@ var ListCategoryComponent = (function () {
     };
     ListCategoryComponent.prototype.getData = function () {
         var self = this;
-        self.categorySer.getPaginationObject(self.limit, self.offset, function (err, data, count) {
+        var whereObject = { "or": [{ "nameEn": this.getRegex(self.keyWord) }, { "nameAr": this.getRegex(self.keyWord) }, { "nameFr": this.getRegex(self.keyWord) }] };
+        self.categorySer.getPaginationObject(whereObject, self.limit, self.offset, function (err, data, count) {
             if (err)
                 return err.returnMessage();
             self.arrayCategory = data;
             if (count)
                 self.count = count;
         });
+    };
+    ListCategoryComponent.prototype.changedKeyWord = function (value) {
+        var self = this;
+        setTimeout(function () {
+            if (self.keyWord == value) {
+                self.offset = 0;
+                self.getData();
+            }
+        }, 1500);
+    };
+    ListCategoryComponent.prototype.getRegex = function (string) {
+        var pattern = new RegExp('.*' + string + '.*', "i"); /* case-insensitive RegExp search */
+        return { regexp: pattern.toString() };
     };
     ListCategoryComponent.prototype.action = function (data) {
         if (data.event == 'edit') {
@@ -2165,7 +2180,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/pages/products/list-product/list-product.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\"  style=\"padding-bottom: 10px; margin: 0px;\">\n    <button (click)=\"addProduct()\" class=\"btn btn-success\" style=\"float: right;\" type=\"button\">\n      {{\"GLOBAL.ADDPRODUCT\"|translate}}\n    </button>\n  </div>\n  <app-custom-table [fields]=\"fields\" [count]=\"count\" [limit]=\"limit\"  [data]=\"arrayProduct\"\n    (changePage)=\"changePages($event)\" (actionOnRow)=\"action($event)\">\n  </app-custom-table>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <div class=\"\" style=\"padding-bottom: 10px; margin: 0px;\">\n    <button (click)=\"addProduct()\" class=\"btn btn-success\" style=\"float: right;margin-top: 4px;\" type=\"button\">\n      {{\"GLOBAL.ADDPRODUCT\"|translate}}\n    </button>\n    <div class=\"searchGroupe\">\n      <!-- <label for=\"numberOfTimes\">{{\"GLOBAL.NEWPASSWORD\"|translate}}</label> -->\n      <input class=\"form-control\" (input)=\"changedKeyWord($event.target.value)\" [(ngModel)]=\"keyWord\" type=\"text\"\n        placeholder=\"{{'GLOBAL.SEARCH'|translate}} {{'GLOBAL.PRODUCT'|translate}}\">\n    </div>\n  </div>\n  <app-custom-table [fields]=\"fields\" [count]=\"count\" [limit]=\"limit\" [data]=\"arrayProduct\"\n    (changePage)=\"changePages($event)\" (actionOnRow)=\"action($event)\">\n  </app-custom-table>\n</div>"
 
 /***/ }),
 
@@ -2193,6 +2208,7 @@ var ListProductComponent = (function () {
     function ListProductComponent(productSer, mainSer) {
         this.productSer = productSer;
         this.mainSer = mainSer;
+        this.keyWord = "";
         this.limit = 10;
         this.offset = 0;
         this.count = 0;
@@ -2226,13 +2242,27 @@ var ListProductComponent = (function () {
     };
     ListProductComponent.prototype.getData = function () {
         var self = this;
-        self.productSer.getPaginationObject(self.limit, self.offset, function (err, data, count) {
+        var whereObject = { "or": [{ "descriptionEn": this.getRegex(self.keyWord) }, { "descriptionAr": this.getRegex(self.keyWord) }, { "descriptionFr": this.getRegex(self.keyWord) }, { "nameEn": this.getRegex(self.keyWord) }, { "nameAr": this.getRegex(self.keyWord) }, { "nameFr": this.getRegex(self.keyWord) }] };
+        self.productSer.getPaginationObject(whereObject, self.limit, self.offset, function (err, data, count) {
             if (err)
                 return err.returnMessage();
             self.arrayProduct = data;
             if (count)
                 self.count = count;
         });
+    };
+    ListProductComponent.prototype.getRegex = function (string) {
+        var pattern = new RegExp('.*' + string + '.*', "i"); /* case-insensitive RegExp search */
+        return { regexp: pattern.toString() };
+    };
+    ListProductComponent.prototype.changedKeyWord = function (value) {
+        var self = this;
+        setTimeout(function () {
+            if (self.keyWord == value) {
+                self.offset = 0;
+                self.getData();
+            }
+        }, 1500);
     };
     ListProductComponent.prototype.action = function (data) {
         if (data.event == 'edit') {
@@ -2307,9 +2337,9 @@ var ProductService = (function () {
             callback(error, null);
         });
     };
-    ProductService.prototype.getPaginationObject = function (limit, offset, callback) {
+    ProductService.prototype.getPaginationObject = function (whereObject, limit, offset, callback) {
         var self = this;
-        var filter = { "limit": limit, "offset": offset };
+        var filter = { "limit": limit, "offset": offset, "where": whereObject };
         if (offset != 0) {
             self.mainSer.APIServ.get("products?filter=" + JSON.stringify(filter))
                 .subscribe(function (data) {
@@ -2319,7 +2349,7 @@ var ProductService = (function () {
             });
         }
         else {
-            self.getCount(function (error, count) {
+            self.getCount(whereObject, function (error, count) {
                 if (error)
                     callback(error, null);
                 else {
@@ -2333,8 +2363,8 @@ var ProductService = (function () {
             });
         }
     };
-    ProductService.prototype.getCount = function (callback) {
-        this.mainSer.APIServ.get("products/count")
+    ProductService.prototype.getCount = function (whereObject, callback) {
+        this.mainSer.APIServ.get("products/count?where=" + JSON.stringify(whereObject))
             .subscribe(function (data) {
             callback(null, data.count);
         }, function (error) {
@@ -2561,7 +2591,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/pages/users/list-user/list-user.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\"  style=\"padding-bottom: 10px; margin: 0px;\">\n    <button (click)=\"addUser()\" class=\"btn btn-success\" style=\"float: right;\" type=\"button\">\n      {{\"GLOBAL.ADDUSER\"|translate}}\n    </button>\n  </div>\n  <app-custom-table [fields]=\"fields\" [count]=\"count\" [limit]=\"limit\"  [data]=\"arrayUser\"\n    (changePage)=\"changePages($event)\" (actionOnRow)=\"action($event)\">\n  </app-custom-table>\n</div>\n"
+module.exports = "<div class=\"container\">\n\n  <div class=\"\" style=\"padding-bottom: 10px; margin: 0px;\">\n    <button (click)=\"addUser()\" class=\"btn btn-success\" style=\"float: right;margin-top: 4px;\" type=\"button\">\n      {{\"GLOBAL.ADDUSER\"|translate}}\n    </button>\n    <div class=\"searchGroupe\">\n      <!-- <label for=\"numberOfTimes\">{{\"GLOBAL.NEWPASSWORD\"|translate}}</label> -->\n      <input class=\"form-control\" (input)=\"changedKeyWord($event.target.value)\" [(ngModel)]=\"keyWord\" type=\"text\"\n        placeholder=\"{{'GLOBAL.SEARCH'|translate}} {{'GLOBAL.USER'|translate}}\">\n    </div>\n  </div>\n  <app-custom-table [fields]=\"fields\" [count]=\"count\" [limit]=\"limit\" [data]=\"arrayUser\"\n    (changePage)=\"changePages($event)\" (actionOnRow)=\"action($event)\">\n  </app-custom-table>\n</div>"
 
 /***/ }),
 
@@ -2595,6 +2625,7 @@ var ListUserComponent = (function () {
         this.limit = 10;
         this.offset = 0;
         this.count = 0;
+        this.keyWord = "";
         this.arrayUser = [];
         // public languageKey = this.mainSer.globalServ.getLanguageKey()
         this.fields = [
@@ -2623,13 +2654,27 @@ var ListUserComponent = (function () {
     };
     ListUserComponent.prototype.getData = function () {
         var self = this;
-        self.userSer.getPaginationObject(self.limit, self.offset, function (err, data, count) {
+        var whereObject = { "or": [{ "name": this.getRegex(self.keyWord) }, { "email": this.getRegex(self.keyWord) }] };
+        self.userSer.getPaginationObject(whereObject, self.limit, self.offset, function (err, data, count) {
             if (err)
                 return err.returnMessage();
             self.arrayUser = data;
             if (count)
                 self.count = count;
         });
+    };
+    ListUserComponent.prototype.changedKeyWord = function (value) {
+        var self = this;
+        setTimeout(function () {
+            if (self.keyWord == value) {
+                self.offset = 0;
+                self.getData();
+            }
+        }, 1500);
+    };
+    ListUserComponent.prototype.getRegex = function (string) {
+        var pattern = new RegExp('.*' + string + '.*', "i"); /* case-insensitive RegExp search */
+        return { regexp: pattern.toString() };
     };
     ListUserComponent.prototype.action = function (data) {
         var self = this;
@@ -2742,9 +2787,9 @@ var UserService = (function () {
             });
         }
     };
-    UserService.prototype.getPaginationObject = function (limit, offset, callback) {
+    UserService.prototype.getPaginationObject = function (whereObject, limit, offset, callback) {
         var self = this;
-        var filter = { "limit": limit, "offset": offset };
+        var filter = { "limit": limit, "offset": offset, "where": whereObject };
         if (offset != 0) {
             self.mainSer.APIServ.get("users?filter=" + JSON.stringify(filter))
                 .subscribe(function (data) {
@@ -2754,7 +2799,7 @@ var UserService = (function () {
             });
         }
         else {
-            self.getCount(function (error, count) {
+            self.getCount(whereObject, function (error, count) {
                 if (error)
                     callback(error, null);
                 else {
@@ -2777,8 +2822,8 @@ var UserService = (function () {
             callback(error, null);
         });
     };
-    UserService.prototype.getCount = function (callback) {
-        this.mainSer.APIServ.get("users/count")
+    UserService.prototype.getCount = function (whereObject, callback) {
+        this.mainSer.APIServ.get("users/count?where=" + JSON.stringify(whereObject))
             .subscribe(function (data) {
             callback(null, data.count);
         }, function (error) {

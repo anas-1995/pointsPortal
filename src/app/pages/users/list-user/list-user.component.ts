@@ -15,6 +15,7 @@ export class ListUserComponent implements OnInit {
   public limit: number = 10
   public offset: number = 0
   public count: number = 0
+  public keyWord: string = "";
   arrayUser: User[] = []
   // public languageKey = this.mainSer.globalServ.getLanguageKey()
 
@@ -48,7 +49,9 @@ export class ListUserComponent implements OnInit {
   }
   getData() {
     var self = this;
-    self.userSer.getPaginationObject(self.limit, self.offset, function (err: appError, data, count) {
+    let whereObject = { "or": [{ "name": this.getRegex(self.keyWord) }, { "email": this.getRegex(self.keyWord) }] }
+
+    self.userSer.getPaginationObject(whereObject, self.limit, self.offset, function (err: appError, data, count) {
       if (err)
         return err.returnMessage()
       self.arrayUser = data;
@@ -57,6 +60,21 @@ export class ListUserComponent implements OnInit {
     })
   }
 
+
+  changedKeyWord(value) {
+    let self = this
+    setTimeout(() => {
+      if (self.keyWord == value) {
+        self.offset = 0
+        self.getData()
+      }
+    }, 1500);
+  }
+
+  getRegex(string) {
+    var pattern = new RegExp('.*' + string + '.*', "i"); /* case-insensitive RegExp search */
+    return { regexp: pattern.toString() }
+  }
   action(data) {
     let self = this
     if (data.event == 'edit') {
@@ -64,7 +82,7 @@ export class ListUserComponent implements OnInit {
     }
     else if (data.event == 'resetPassword') {
       self.dialogSer.resetPassword(self.arrayUser[data.index], function () {
-        
+
       })
     }
   }

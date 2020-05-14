@@ -24654,3 +24654,6 @@ ng-select.ng-select>div>div.single>div.placeholder {
 th{
   text-align: left
 }
+.searchGroupe input{
+width: 250px;
+}

@@ -11,6 +11,7 @@ import { ProductService } from '../product.service';
 })
 export class ListProductComponent implements OnInit {
 
+  public keyWord: string = "";
   public limit: number = 10
   public offset: number = 0
   public count: number = 0
@@ -50,13 +51,29 @@ export class ListProductComponent implements OnInit {
   }
   getData() {
     var self = this;
-    self.productSer.getPaginationObject(self.limit, self.offset, function (err: appError, data, count) {
+    let whereObject = { "or": [{ "descriptionEn": this.getRegex(self.keyWord) }, { "descriptionAr": this.getRegex(self.keyWord) }, { "descriptionFr": this.getRegex(self.keyWord) }, { "nameEn": this.getRegex(self.keyWord) }, { "nameAr": this.getRegex(self.keyWord) }, { "nameFr": this.getRegex(self.keyWord) }] }
+
+    self.productSer.getPaginationObject(whereObject, self.limit, self.offset, function (err: appError, data, count) {
       if (err)
         return err.returnMessage()
       self.arrayProduct = data;
       if (count)
         self.count = count;
     })
+  }
+
+  getRegex(string) {
+    var pattern = new RegExp('.*' + string + '.*', "i"); /* case-insensitive RegExp search */
+    return { regexp: pattern.toString() }
+  }
+  changedKeyWord(value) {
+    let self = this
+    setTimeout(() => {
+      if (self.keyWord == value) {
+        self.offset = 0
+        self.getData()
+      }
+    }, 1500);
   }
 
   action(data) {

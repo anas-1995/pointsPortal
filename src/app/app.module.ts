@@ -60,6 +60,7 @@ import { ListUserComponent } from './pages/users/list-user/list-user.component';
 import { AddUserComponent } from './pages/users/add-user/add-user.component';
 import { UserService } from './pages/users/user.service';
 import { ResetPasswordComponent } from './modal/change-order-status/reset-password.component';
+import { ParentRemoveDirective } from './shared/element/parent-remove.directive';
 
 export function HttpLoaderFactory(http: Http) {
   return new TranslateHttpLoader(http, './assets/languages/', '.json');
@@ -73,7 +74,7 @@ export function HttpLoaderFactory(http: Http) {
     BreadcrumbsComponent,
     TitleComponent,
     AuthComponent,
-
+    ParentRemoveDirective,
     // pages
     // // home
     // HomeComponent,

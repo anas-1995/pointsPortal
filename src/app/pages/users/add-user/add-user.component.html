@@ -62,6 +62,45 @@
             class="text-danger errorLabel">{{'ERROR_FORM.ERROR_FIELD_REQUIRED'|translate}}</label>
         </div>
       </div>
+
+
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.APARTMENTNUMBER"|translate}}</label>
+          <input class="form-control" formControlName="apartmentNumber" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.APARTMENTNUMBER'|translate}}">
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.STREETNAME"|translate}}</label>
+          <input class="form-control" formControlName="streetName" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.STREETNAME'|translate}}">
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.CIVICNUMBER"|translate}}</label>
+          <input class="form-control" formControlName="civicNumber" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.CIVICNUMBER'|translate}}">
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.CITY"|translate}}</label>
+          <input class="form-control" formControlName="city" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.CITY'|translate}}">
+        </div>
+      </div>
+      <div class="col-sm col-sm-4">
+        <div class="form-group">
+          <label for="numberOfTimes">{{"GLOBAL.POSTALCODE"|translate}}</label>
+          <input class="form-control" formControlName="postalCode" type="text" (input)="isSubmitted=false;message=''"
+            placeholder="{{'GLOBAL.ENTER'|translate}} {{'GLOBAL.POSTALCODE'|translate}}">
+        </div>
+      </div>
+
+
       <div class="col-sm col-sm-4">
         <div class="form-group">
           <label for="numberOfTimes">{{"GLOBAL.BIRTHDATE"|translate}}</label>

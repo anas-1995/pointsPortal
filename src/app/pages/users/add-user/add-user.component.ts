@@ -36,7 +36,12 @@ export class AddUserComponent implements OnInit {
     birthdate: new FormControl(""),
     password: new FormControl("", Validators.required),
     points: new FormControl(0, Validators.required),
-    phone: new FormControl("")
+    phone: new FormControl(""),
+    apartmentNumber: new FormControl(""),
+    streetName: new FormControl(""),
+    civicNumber: new FormControl(""),
+    city: new FormControl(""),
+    postalCode: new FormControl("")
   });
 
   // constArray

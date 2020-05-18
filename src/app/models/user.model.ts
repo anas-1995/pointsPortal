@@ -6,6 +6,12 @@ export class User {
   email: string;
   gender: string;
   phone: string;
+  apartmentNumber	: string;
+  streetName: string;
+  civicNumber: string;
+  city: string;
+  postalCode: string;
+
   birthdate: Date
   image: Image
   points:number
@@ -17,6 +23,11 @@ export class User {
     this.email = user.email || "";
     this.gender = user.gender || "";
     this.phone = user.phone || "";
+    this.apartmentNumber = user.apartmentNumber || "";
+    this.streetName = user.streetName || "";
+    this.civicNumber = user.civicNumber || "";
+    this.city = user.city || "";
+    this.postalCode = user.postalCode || "";
     this.points=user.points||0
     this.birthdate = new Date(user.birthdate)
     if (user.media)

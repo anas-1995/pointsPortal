@@ -2884,7 +2884,7 @@ var ApiService = (function () {
         this.authSer = authSer;
         this.loaderSer = loaderSer;
         // readonly baseUrl = "http://localhost:3000/api/"
-        this.baseUrl = "http://195.201.69.7:3000/api/";
+        this.baseUrl = "https://crownsoflight.ca:3000/api/";
     }
     ApiService.prototype.createUrlString = function (index, variables, filter, ordering) {
         // let url = this.constURL[index];
@@ -2910,7 +2910,7 @@ var ApiService = (function () {
         console.log(error);
         if (error.status == 401)
             // this.authSer.logout()
-            window.location.href = "http://195.201.69.7/dashboard/#/login";
+            window.location.href = "https://crownsoflight.ca/dashboard/#/login";
         return __WEBPACK_IMPORTED_MODULE_1_rxjs__["Observable"].throw(new __WEBPACK_IMPORTED_MODULE_5__models_app_error_model__["a" /* appError */](error));
     };
     ApiService.prototype.login = function (url, data) {

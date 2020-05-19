@@ -27,7 +27,8 @@ export class ListUserComponent implements OnInit {
     {
       "type": "buttons", "label": "", "isIcon": false, "buttons": [
         { "type": "success", "action": "edit", "label": "GLOBAL.EDIT" },
-        { "type": "warning", "action": "resetPassword", "label": "GLOBAL.RESETPASSWORD" }
+        { "type": "warning", "action": "resetPassword", "label": "GLOBAL.RESETPASSWORD" },
+        { "type": "danger", "action": "delete", "label": "GLOBAL.DELETE" }
       ]
     }
 
@@ -83,6 +84,15 @@ export class ListUserComponent implements OnInit {
     else if (data.event == 'resetPassword') {
       self.dialogSer.resetPassword(self.arrayUser[data.index], function () {
 
+      })
+    }
+    else if (data.event == 'delete') {
+
+      this.dialogSer.confirmMessage("delete", function () {
+        // alert("SSS");
+        self.userSer.delete(data.id, function () {
+          self.getData()
+        })
       })
     }
   }

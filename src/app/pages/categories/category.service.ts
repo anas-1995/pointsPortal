@@ -87,5 +87,13 @@ export class CategoryService {
       })
   }
 
+  delete(id, callback) {
+    this.mainSer.APIServ.delete("categories/" + id + "/deleteCategory")
+      .subscribe((data: any) => {
+        callback(null)
+      }, error => {
+        callback(error, null)
+      })
+  }
 
 }

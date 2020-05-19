@@ -164,7 +164,7 @@ export class ApiService {
       .catch(this.handleError)
   }
 
-  delete(urlObject, token: string = "") {
+  delete(url, token: string = "") {
     this.loaderSer.display(true);
     let self = this;
 
@@ -174,11 +174,11 @@ export class ApiService {
     else if (this.authSer.isLogin()) {
       auth = this.authSer.getToken();
     }
-    let url = this.createUrlString(urlObject.index, urlObject.variables, urlObject.filter, urlObject.ordering)
+    let mainUrl = this.baseUrl + url//this.createUrlString(urlObject.index, urlObject.variables, urlObject.filter, urlObject.ordering)
 
     let _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": auth }) };
 
-    return this.http.delete(url, _options)
+    return this.http.delete(mainUrl, _options)
       .finally(function () {
         self.loaderSer.display(false);
       })

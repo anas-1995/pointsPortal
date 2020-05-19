@@ -3,6 +3,7 @@ import { MainService } from './../../../service/main.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../models/product.model';
 import { ProductService } from '../product.service';
+import { DialogService } from '../../../service/dialog.service';
 
 @Component({
   selector: 'app-list-product',
@@ -34,7 +35,7 @@ export class ListProductComponent implements OnInit {
     }
 
   ]
-  constructor(private productSer: ProductService, private mainSer: MainService) { }
+  constructor(private productSer: ProductService, private mainSer: MainService, private dialogSer: DialogService) { }
 
   ngOnInit() {
     this.getData()
@@ -77,10 +78,17 @@ export class ListProductComponent implements OnInit {
   }
 
   action(data) {
+    let self = this
     if (data.event == 'edit') {
       this.mainSer.globalServ.goTo("edit-product/" + data.id)
     }
     else if (data.event == 'delete') {
+      this.dialogSer.confirmMessage("delete", function () {
+        // alert("SSS");
+        self.productSer.updateItem({ "deleted": true }, data.id, function () {
+          self.getData()
+        })
+      })
     }
   }
 

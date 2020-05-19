@@ -134,4 +134,13 @@ export class UserService {
   }
 
 
+  delete(id, callback) {
+    this.mainSer.APIServ.delete("users/" + id + "/deleteUser")
+      .subscribe((data: any) => {
+        callback(null)
+      }, error => {
+        callback(error, null)
+      })
+  }
+
 }

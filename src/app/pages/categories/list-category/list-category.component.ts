@@ -3,6 +3,7 @@ import { MainService } from './../../../service/main.service';
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../../../models/category.model';
 import { CategoryService } from '../category.service';
+import { DialogService } from '../../../service/dialog.service';
 
 @Component({
   selector: 'app-list-category',
@@ -30,7 +31,7 @@ export class ListCategoryComponent implements OnInit {
     }
 
   ]
-  constructor(private categorySer: CategoryService, private mainSer: MainService) { }
+  constructor(private categorySer: CategoryService, private mainSer: MainService, private dialogSer: DialogService) { }
 
   ngOnInit() {
     this.getData()
@@ -72,9 +73,17 @@ export class ListCategoryComponent implements OnInit {
     return { regexp: pattern.toString() }
   }
   action(data) {
+    let self = this;
     if (data.event == 'edit') {
       this.mainSer.globalServ.goTo("edit-category/" + data.id)
     } else if (data.event == 'delete') {
+
+      this.dialogSer.confirmMessage("delete", function () {
+        // alert("SSS");
+        self.categorySer.delete(data.id, function () {
+          self.getData()
+        })
+      })
     }
   }
 

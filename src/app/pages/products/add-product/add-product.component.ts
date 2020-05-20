@@ -88,7 +88,12 @@ export class AddProductComponent implements OnInit {
   updateObject() {
     let self = this;
     let body = this.productForm.value;
-    this.productSer.updateItem(body, self.id, function (err: appError, data) {
+    let imagesId = []
+    self.arrayImage.forEach(element => {
+      imagesId.push(element.id)
+    });
+
+    this.productSer.updateItem({ "data": body, "imagesId": imagesId }, self.id, function (err: appError, data) {
       if (err) {
         err.returnMessage();
         return;

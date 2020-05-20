@@ -30,7 +30,7 @@ export class ProductService {
 
   updateItem(data, id, callback) {
     delete data.id
-    this.mainSer.APIServ.put("products/" + id, data)
+    this.mainSer.APIServ.put("products/" + id+"/updateProduct", data)
       .subscribe((data: any) => {
         callback(null, data)
       }, error => {

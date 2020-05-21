@@ -43,12 +43,17 @@ const MENUITEMSOperator = [
       state: 'list-product',
       name: 'MAINMENU.PRODUCT',
       type: 'link',
-      icon: 'ti-shopping-cart '
+      icon: 'ti-bag'
     }, {
       state: 'list-user',
       name: 'MAINMENU.USER',
       type: 'link',
       icon: 'ti-user '
+    }, {
+      state: 'all-purchases',
+      name: 'MAINMENU.ALLPURCHASES',
+      type: 'link',
+      icon: 'ti-shopping-cart'
     }
     ]
   },

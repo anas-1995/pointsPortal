@@ -12,7 +12,7 @@ import { DialogService } from '../../../service/dialog.service';
 })
 export class ListUserComponent implements OnInit {
 
-  public limit: number = 10
+  public limit: number = 30
   public offset: number = 0
   public count: number = 0
   public keyWord: string = "";

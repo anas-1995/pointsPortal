@@ -61,6 +61,9 @@ import { AddUserComponent } from './pages/users/add-user/add-user.component';
 import { UserService } from './pages/users/user.service';
 import { ResetPasswordComponent } from './modal/change-order-status/reset-password.component';
 import { ParentRemoveDirective } from './shared/element/parent-remove.directive';
+import { ListPurchasesComponent } from './pages/purchases/list-purchases/list-purchases.component';
+import { PurchasesService } from './pages/purchases/purchases.service';
+
 
 export function HttpLoaderFactory(http: Http) {
   return new TranslateHttpLoader(http, './assets/languages/', '.json');
@@ -90,6 +93,9 @@ export function HttpLoaderFactory(http: Http) {
     ListProductComponent, AddProductComponent,
     // // auth
     loginComponent,
+
+    // // purchases
+    ListPurchasesComponent,
 
     // // others
     TableComponent, UploadImgComponent, StatusFilterComponent, DateFilterComponent, InputSearchComponent,
@@ -133,7 +139,7 @@ export function HttpLoaderFactory(http: Http) {
     // main services
     AppDirectionService, AuthGuardService, MainService, GlobalService, AuthService, LoaderService, ApiService, DialogService, TransfereService,
     // pages services
-    CategoryService, LoginService, ProductService, UserService,
+    CategoryService, LoginService, ProductService, UserService,PurchasesService,
     UploadImgService,
     // others
     NgbActiveModal

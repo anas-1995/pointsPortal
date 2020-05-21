@@ -22,7 +22,7 @@ export class AddUserComponent implements OnInit {
   public id: number;
 
 
-  public limit: number = 10
+  public limit: number = 30
   public offset: number = 0
   public count: number = 0
   arrayPurshes: any[] = []

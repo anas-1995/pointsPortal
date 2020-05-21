@@ -14,12 +14,14 @@
     "ADDPRODUCT": "Add Product",
     "LISTUSER": "All User",
     "EDITUSER": "Edit User",
-    "ADDUSER": "Add User"
+    "ADDUSER": "Add User",
+    "ALLPURCHASES": "All Purchases"
   },
   "MAINMENU": {
     "USER": "User",
     "CATEGORY": "Category",
-    "PRODUCT": "Product"
+    "PRODUCT": "Product",
+    "ALLPURCHASES": "All Purchases"
   },
   "ERROR_FORM": {
     "ERROR_FIELD_REQUIRED": "This field is required",
@@ -99,6 +101,8 @@
     "PHONE": "Phone",
     "PRICE": "Price",
     "PRODUCT": "Product",
+    "PRODUCTID": "Product ID",
+    "ID": "ID",
     "PURCHASECOUNT": "Purchase Count",
     "QUANTITY": "Quantity",
     "CATEGORY": "Category",

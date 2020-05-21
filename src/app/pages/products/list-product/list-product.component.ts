@@ -13,16 +13,16 @@ import { DialogService } from '../../../service/dialog.service';
 export class ListProductComponent implements OnInit {
 
   public keyWord: string = "";
-  public limit: number = 10
+  public limit: number = 30
   public offset: number = 0
   public count: number = 0
   arrayProduct: Product[] = []
   // public languageKey = this.mainSer.globalServ.getLanguageKey()
 
   fields = [
+    { "key": "id", "label": "GLOBAL.ID", "type": "string" },
+    { "key": "categoryName", "label": "GLOBAL.CATEGORY", "type": "string" },
     { "key": "nameEn", "label": "GLOBAL.NAMEEN", "type": "string" },
-    { "key": "nameAr", "label": "GLOBAL.NAMEAR", "type": "string" },
-    { "key": "nameFr", "label": "GLOBAL.NAMEFR", "type": "string" },
     { "key": "price", "label": "GLOBAL.PRICE", "type": "price" },
     { "key": "quantity", "label": "GLOBAL.QUANTITY", "type": "string" },
     { "key": "purchaseCount", "label": "GLOBAL.PURCHASECOUNT", "type": "string" },

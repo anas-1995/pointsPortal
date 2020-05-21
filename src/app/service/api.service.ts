@@ -11,7 +11,7 @@ export class ApiService {
 
   constructor(public http: HttpClient, private authSer: AuthService, private loaderSer: LoaderService) {
   }
-  // readonly baseUrl = "http://localhost:3000/api/"
+  //readonly baseUrl = "http://localhost:3000/api/"
   readonly baseUrl = "https://crownsoflight.ca:3000/api/"
 
 
@@ -43,7 +43,7 @@ export class ApiService {
     console.log("error")
     console.log(error)
     if (error.status == 401)
-      // this.authSer.logout()
+       //this.authSer.logout()
       window.location.href = "https://crownsoflight.ca/dashboard/#/login";
     return Observable.throw(new appError(error))
   }

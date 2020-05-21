@@ -9,6 +9,7 @@ import { AddProductComponent } from './pages/products/add-product/add-product.co
 import { ListProductComponent } from './pages/products/list-product/list-product.component';
 import { ListUserComponent } from './pages/users/list-user/list-user.component';
 import { AddUserComponent } from './pages/users/add-user/add-user.component';
+import { ListPurchasesComponent } from './pages/purchases/list-purchases/list-purchases.component';
 
 export const AppRoutes: Routes = [
   {
@@ -101,6 +102,14 @@ export const AppRoutes: Routes = [
         }
       },
 
+      {
+        path: 'all-purchases',
+        component: ListPurchasesComponent,
+        canActivate: [AuthGuardService],
+        data: {
+          "pageTitle": "ALLPURCHASES"
+        }
+      },
       // {
       //   path: 'list-user',
       //   component: ListUserComponent,

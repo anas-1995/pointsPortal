@@ -12,6 +12,7 @@ export class Product {
   price: number
   purchaseCount: number
   categoryId: number
+  categoryName: number
   images: Image[]
   createdAt: Date;
 
@@ -23,10 +24,11 @@ export class Product {
     this.descriptionEn = product.descriptionEn || "";
     this.descriptionAr = product.descriptionAr || "";
     this.descriptionFr = product.descriptionFr || "";
-    this.quantity = product.quantity || 0;
+    this.quantity = product.quantity || "Out of stock";
     this.purchaseCount = product.purchaseCount || 0
     this.price = product.price || 0;
     this.categoryId = product.categoryId || "";
+    this.categoryName = product.category.nameEn || "";
     if (product.media)
       this.images = Image.arrayconstructor(product.media)
     this.createdAt = product.createdAt || new Date()

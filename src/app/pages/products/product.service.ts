@@ -30,7 +30,7 @@ export class ProductService {
 
   updateItem(data, id, callback) {
     delete data.id
-    this.mainSer.APIServ.put("products/" + id+"/updateProduct", data)
+    this.mainSer.APIServ.put("products/" + id + "/updateProduct", data)
       .subscribe((data: any) => {
         callback(null, data)
       }, error => {
@@ -39,11 +39,21 @@ export class ProductService {
   }
 
 
+  updateOneItem(data, id, callback) {
+    delete data.id
+    this.mainSer.APIServ.put("products/" + id, data)
+      .subscribe((data: any) => {
+        callback(null, data)
+      }, error => {
+        callback(error, null)
+      })
+  }
+
   getPaginationObject(whereObject, limit, offset, orderBy = "", callback) {
     let self = this
     var filter = { "limit": limit, "offset": offset, "where": whereObject }
-    if (orderBy != "") 
-        filter["order"] = orderBy;
+    if (orderBy != "")
+      filter["order"] = orderBy;
 
     if (offset != 0) {
 

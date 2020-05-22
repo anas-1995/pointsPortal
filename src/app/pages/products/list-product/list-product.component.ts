@@ -90,7 +90,7 @@ export class ListProductComponent implements OnInit {
     else if (data.event == 'delete') {
       this.dialogSer.confirmMessage("delete", function () {
         // alert("SSS");
-        self.productSer.updateItem({ "deleted": true }, data.id, function () {
+        self.productSer.updateOneItem({ "deleted": true }, data.id, function () {
           self.getData()
         })
       })

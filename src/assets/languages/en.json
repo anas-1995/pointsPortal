@@ -68,6 +68,7 @@
     "452": "Please Assign Order To Center First"
   },
   "GLOBAL": {
+    "PERPAGE": "Count per page",
     "ADD": "Add",
     "EDIT": "Edit",
     "EMAIL": "Email",

@@ -14,17 +14,18 @@ export class TableComponent implements OnInit {
   @Input() currentPage: number;
   @Input() withPage: boolean = true;
   @Input() orderBy: string = "";
+  @Input() showPerPage: boolean = false;
 
   @Output() actionOnRow = new EventEmitter<any>();
   @Output() changePage = new EventEmitter<number>();
   @Output() changeOrderBy = new EventEmitter<string>();
+  @Output() limitChange = new EventEmitter<number>();
 
 
   constructor(private mainSer: MainService) { }
 
   pageChanged(event) {
     this.changePage.next(event.page);
-
   }
   fieldOrderChanged(field) {
     if (field == this.orderBy){
@@ -32,7 +33,10 @@ export class TableComponent implements OnInit {
     }
     this.changeOrderBy.next(field);
   }
-
+  limitChanged(event) {
+    this.limitChange.next(this.limit);
+    this.changePage.next(event.page);
+  }
   action(id, event, index) {
     this.actionOnRow.next({ "id": id, "event": event, "index": index });
   }

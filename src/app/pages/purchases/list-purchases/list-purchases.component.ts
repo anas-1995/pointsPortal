@@ -11,6 +11,7 @@ import { DialogService } from '../../../service/dialog.service';
 })
 export class ListPurchasesComponent implements OnInit {
 
+  public showPerPage :boolean = true
   public limit: number = 30
   public offset: number = 0
   public count: number = 0

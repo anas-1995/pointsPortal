@@ -6,7 +6,8 @@
         placeholder="{{'GLOBAL.SEARCH'|translate}} {{'GLOBAL.PRODUCT'|translate}}">
     </div>
   </div>
-  <app-custom-table [fields]="fields" [count]="count" [limit]="limit" [data]="arrayPurchase"
-    (changePage)="changePages($event)" (changeOrderBy) = "changeOrderBy($event)" [orderBy] = "orderBy">
+  <app-custom-table [fields]="fields" [count]="count" [(limit)]="limit" [data]="arrayPurchase"
+    (changePage)="changePages($event)" (changeOrderBy) = "changeOrderBy($event)" [orderBy] = "orderBy" [showPerPage] = "showPerPage" >
   </app-custom-table>
+  
 </div>

@@ -92,8 +92,10 @@
   <pagination [totalItems]="count" [itemsPerPage]="limit" previousText="&lsaquo;" nextText="&rsaquo;"
     firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)" [maxSize]="7" [rotate]="false"
     [boundaryLinks]="true"></pagination>
-  <!-- <div class="per-page-sec">
-    <span>{{"client.perPage"|translate}}</span>
-    <input id="perpage" class="form-control" type="number" (change)="changepages($event)" [value]="pages">
-  </div> -->
+</div>
+<div class="row" *ngIf="showPerPage&&withPage" style="margin: 20px 0px;">
+  <div class="col-xs-2">
+      <span>{{"GLOBAL.PERPAGE"|translate}}</span>
+      <input id="perpage" class="form-control" type="number" [(ngModel)]="limit" (change)="limitChanged($event)" [value]="limit">
+  </div>
 </div>

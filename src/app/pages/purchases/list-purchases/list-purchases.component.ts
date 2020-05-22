@@ -15,6 +15,8 @@ export class ListPurchasesComponent implements OnInit {
   public offset: number = 0
   public count: number = 0
   public keyWord: string = "";
+  public orderBy: string = "createdAt desc";
+
   arrayPurchase: any[] = []
 
 
@@ -30,10 +32,14 @@ export class ListPurchasesComponent implements OnInit {
     this.offset = (page - 1) * this.limit;
     this.getData()
   }
+  changeOrderBy(field){
+    this.orderBy = field;
+    this.getData();
+  }
   getData() {
     var self = this;
     let whereObject = { "or": [{ "productId": this.getRegex(self.keyWord) }, { "productId": this.getRegex(self.keyWord) }, { "productId": this.getRegex(self.keyWord) }] }
-    self.purchaseSer.getPurshesPaginationObject(whereObject, self.limit, self.offset, function (err: appError, data, count) {
+    self.purchaseSer.getPurshesPaginationObject(whereObject, self.limit, self.offset, self.orderBy, function (err: appError, data, count) {
       if (err)
         return err.returnMessage()
       self.arrayPurchase = data;

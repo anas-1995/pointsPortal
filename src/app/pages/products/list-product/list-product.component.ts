@@ -16,6 +16,7 @@ export class ListProductComponent implements OnInit {
   public limit: number = 30
   public offset: number = 0
   public count: number = 0
+  public orderBy: string = "";
   arrayProduct: Product[] = []
   // public languageKey = this.mainSer.globalServ.getLanguageKey()
 
@@ -50,11 +51,15 @@ export class ListProductComponent implements OnInit {
     this.offset = (page - 1) * this.limit;
     this.getData()
   }
+  changeOrderBy(field){
+    this.orderBy = field;
+    this.getData();
+  }
   getData() {
     var self = this;
     let whereObject = { "or": [{ "descriptionEn": this.getRegex(self.keyWord) }, { "descriptionAr": this.getRegex(self.keyWord) }, { "descriptionFr": this.getRegex(self.keyWord) }, { "nameEn": this.getRegex(self.keyWord) }, { "nameAr": this.getRegex(self.keyWord) }, { "nameFr": this.getRegex(self.keyWord) }] }
 
-    self.productSer.getPaginationObject(whereObject, self.limit, self.offset, function (err: appError, data, count) {
+    self.productSer.getPaginationObject(whereObject, self.limit, self.offset, self.orderBy, function (err: appError, data, count) {
       if (err)
         return err.returnMessage()
       self.arrayProduct = data;

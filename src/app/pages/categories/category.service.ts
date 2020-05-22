@@ -39,9 +39,12 @@ export class CategoryService {
   }
 
 
-  getPaginationObject(whereObject, limit, offset, callback) {
+  getPaginationObject(whereObject, limit, offset, orderBy = "", callback) {
     let self = this
     var filter = { "limit": limit, "offset": offset, "where": whereObject }
+    if (orderBy != "") 
+        filter["order"] = orderBy;
+
     if (offset != 0) {
 
       self.mainSer.APIServ.get("categories?filter=" + JSON.stringify(filter))

@@ -8,9 +8,12 @@ export class PurchasesService {
   constructor(private mainSer: MainService) { }
 
 
-  getPurshesPaginationObject(whereObject, limit, offset, callback) {
+  getPurshesPaginationObject(whereObject, limit, offset, orderBy = "",  callback) {
     let self = this
-    var filter = { "limit": limit, "offset": offset ,"where":whereObject, "order": "createdAt desc"}
+    var filter = { "limit": limit, "offset": offset ,"where":whereObject}
+    if (orderBy != "") 
+        filter["order"] = orderBy;
+
     if (offset != 0) {
 
       self.mainSer.APIServ.get("purchases?filter=" + JSON.stringify(filter))

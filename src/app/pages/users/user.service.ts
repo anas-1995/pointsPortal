@@ -77,9 +77,12 @@ export class UserService {
   }
 
 
-  getPaginationObject(whereObject, limit, offset, callback) {
+  getPaginationObject(whereObject, limit, offset, orderBy = "", callback) {
     let self = this
-    var filter = { "limit": limit, "offset": offset, "where": whereObject, "order": "name asc" }
+    var filter = { "limit": limit, "offset": offset, "where": whereObject}
+    if (orderBy != "") 
+        filter["order"] = orderBy;
+
     if (offset != 0) {
 
       self.mainSer.APIServ.get("users?filter=" + JSON.stringify(filter))

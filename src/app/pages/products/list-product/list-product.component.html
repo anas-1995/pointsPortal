@@ -10,6 +10,6 @@
     </div>
   </div>
   <app-custom-table [fields]="fields" [count]="count" [limit]="limit" [data]="arrayProduct"
-    (changePage)="changePages($event)" (actionOnRow)="action($event)">
+    (changePage)="changePages($event)" (actionOnRow)="action($event)" (changeOrderBy) = "changeOrderBy($event)" [orderBy] = "orderBy">
   </app-custom-table>
 </div>

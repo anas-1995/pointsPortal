@@ -16,6 +16,7 @@ export class ListCategoryComponent implements OnInit {
   public offset: number = 0
   public count: number = 0
   public keyWord: string = "";
+  public orderBy: string = "";
   arrayCategory: Category[] = []
   // public languageKey = this.mainSer.globalServ.getLanguageKey()
 
@@ -46,10 +47,14 @@ export class ListCategoryComponent implements OnInit {
     this.offset = (page - 1) * this.limit;
     this.getData()
   }
+  changeOrderBy(field){
+    this.orderBy = field;
+    this.getData();
+  }
   getData() {
     var self = this;
     let whereObject = { "or": [{ "nameEn": this.getRegex(self.keyWord) }, { "nameAr": this.getRegex(self.keyWord) }, { "nameFr": this.getRegex(self.keyWord) }] }
-    self.categorySer.getPaginationObject(whereObject, self.limit, self.offset, function (err: appError, data, count) {
+    self.categorySer.getPaginationObject(whereObject, self.limit, self.offset, self.orderBy, function (err: appError, data, count) {
       if (err)
         return err.returnMessage()
       self.arrayCategory = data;

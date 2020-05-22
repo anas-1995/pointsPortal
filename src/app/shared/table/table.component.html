@@ -4,7 +4,7 @@
 
     <thead>
       <tr>
-        <th *ngFor="let oneField of fields">{{oneField.label|translate}}</th>
+        <th *ngFor="let oneField of fields" (click)="fieldOrderChanged(oneField.key)">{{oneField.label|translate}}</th>
       </tr>
     </thead>
     <tbody>

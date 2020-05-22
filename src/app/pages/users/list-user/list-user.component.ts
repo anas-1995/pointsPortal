@@ -16,6 +16,8 @@ export class ListUserComponent implements OnInit {
   public offset: number = 0
   public count: number = 0
   public keyWord: string = "";
+  public orderBy: string = "name asc";
+
   arrayUser: User[] = []
   // public languageKey = this.mainSer.globalServ.getLanguageKey()
 
@@ -48,11 +50,15 @@ export class ListUserComponent implements OnInit {
     this.offset = (page - 1) * this.limit;
     this.getData()
   }
+  changeOrderBy(field){
+    this.orderBy = field;
+    this.getData();
+  }
   getData() {
     var self = this;
     let whereObject = { "or": [{ "name": this.getRegex(self.keyWord) }, { "email": this.getRegex(self.keyWord) }] }
 
-    self.userSer.getPaginationObject(whereObject, self.limit, self.offset, function (err: appError, data, count) {
+    self.userSer.getPaginationObject(whereObject, self.limit, self.offset, self.orderBy, function (err: appError, data, count) {
       if (err)
         return err.returnMessage()
       self.arrayUser = data;
